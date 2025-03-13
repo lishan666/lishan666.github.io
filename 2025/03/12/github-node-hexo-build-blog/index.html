@@ -481,23 +481,25 @@
   
     <article id="comments" lazyload>
       
-  <div id="valine"></div>
+  <div id="twikoo"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
         var options = Object.assign(
-          {"appId":"kEZ3wuw6Mgoy0O2bIpMzSK2P-gzGzoHsz","appKey":"zIdCc1QZWFWOnV0rDFpTnNz2","path":"window.location.pathname","placeholder":"在昵称中输入QQ号即可快速留言讨论，实名上网，请文明发言，抵制广告等行为！","avatar":"retro","meta":["昵称","邮箱","网址"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":true,"recordIP":true,"serverURLs":"https://kez3wuw6.lc-cn-n1-shared.com","emojiCDN":null,"emojiMaps":null,"enableQQ":true,"visitor":true},
+          {"envId":"https://bespoke-starlight-6f3b21.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
           {
-            el: "#valine",
-            path: window.location.pathname
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
           }
         )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
+        twikoo.init(options)
       });
     });
   </script>
