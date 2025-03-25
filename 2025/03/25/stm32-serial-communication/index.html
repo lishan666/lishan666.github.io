@@ -54,7 +54,7 @@
 <meta property="og:image" content="https://www.bit01.top/b2eee2b9777f769eb190cda7a48a8928.png">
 <meta property="og:image" content="https://www.bit01.top/90645357ced89ef8de50648623d21f19.png">
 <meta property="article:published_time" content="2025-03-25T05:28:58.000Z">
-<meta property="article:modified_time" content="2025-03-25T14:20:11.802Z">
+<meta property="article:modified_time" content="2025-03-25T16:50:13.516Z">
 <meta property="article:author" content="李珊">
 <meta property="article:tag" content="STM32">
 <meta name="twitter:card" content="summary_large_image">
@@ -432,7 +432,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年3月25日 晚上
+                    本文最后更新于 2025年3月26日 凌晨
                   
                 
               </p>
@@ -474,7 +474,7 @@
 <p>（5）当出现校验错误时，输出“校验错误，请重新发送命令”。</p>
 <h2 id="3-总体设计方案"><a href="#3-总体设计方案" class="headerlink" title="3 总体设计方案"></a>3 总体设计方案</h2><p>使用笔记本电脑与STM32单片机进行数据交互，模拟超市电脑与打印机之间的通信过程。笔记本电脑上安装有串口调试助手软件，串口调试助手作为上位机可以实现人机界面交互的功能，同时也是检验串口通信是否正常的工具。</p>
 <p>笔记本电脑一般没有串口，但至少有一个USB口。单片机的串口是映射到GPIO上的，本文只需要用到接收、发送引脚，也就是2个GPIO，再加上电源和地，一共4个单片机引脚。笔记本的USB口和单片机串口之间不能直接相连，因为两者的工作电平逻辑不一致，需要通过一个USB转TTL模块进行电平转换，同时笔记本电脑上需要安装配套的USB转串口驱动程序。</p>
-<p>系统设计方案如下<br><img src="/7d66868b08c0df9f631f1e62cdecc277.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>系统设计方案如下<br><img src="/7d66868b08c0df9f631f1e62cdecc277.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h2 id="4-设计前的思考和准备"><a href="#4-设计前的思考和准备" class="headerlink" title="4 设计前的思考和准备"></a>4 设计前的思考和准备</h2><p><strong>思考：</strong></p>
 <ol>
 <li>串口的参数设置中有一位校验位，如何实现，又如何体现校验的作用；</li>
@@ -486,35 +486,35 @@
 <ol>
 <li>搭建硬件电路连线</li>
 </ol>
-<p>​    在开发过程中，本文还连接了ST-Link调试器，使用调试器可以让程序下载更快，同时能进行硬件仿真调试，可以提高开发效率，当然也可以直接使用串口下载程序。项目完成后，实际运行时不需要再连接调试器。                             </p>
-<p>硬件连接示意如下<br><img src="/1abbda00a03293495b37648410c57113.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>​    在开发过程中，本文还连接了ST-Link调试器，使用调试器可以让程序下载更快，同时能进行硬件仿真调试，可以提高开发效率，当然也可以直接使用串口下载程序。项目完成后，实际运行时不需要再连接调试器。</p>
+<p>硬件连接示意如下<br><img src="/1abbda00a03293495b37648410c57113.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>2.安装USB转串口驱动程序</p>
 <p>本文用到的USB转TTL模块芯片为PL2303HX，驱动程序可在网上进行下载，双击驱动程序按提示完成驱动安装。其他芯片的驱动安装方法类似。</p>
-<p>安装USB转串口驱动如下<br><img src="/2b62c0194d88fe177f8fb17f56f04952.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>安装USB转串口驱动如下<br><img src="/2b62c0194d88fe177f8fb17f56f04952.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>驱动安装完成后，插上USB转TTL模块，在设备管理器中选择端口，如果能够看到识别到的驱动程序和端口号，表示驱动安装成功。否则，右键选择更新驱动程序，从我的计算机驱动程序中选择2009年的版本，当出现下图界面，能分配到一个端口号即表示安装成功。其它的芯片模块可能在驱动程序安装完后就能看到端口号，此时不需要进行驱动程序的更新操作。</p>
-<p>驱动安装成功示意图如下<br><img src="/f9d7f238fbb78e7704d92edff281e65e.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>驱动安装成功示意图如下<br><img src="/f9d7f238fbb78e7704d92edff281e65e.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>3.下载串口调试助手软件、Keil-MDk软件</p>
 <p>串口调试助手网上非常多，可以自行选择，但是要注意，一定要知道这款串口助手对中文字符的编码采用什么格式，网上资源以GB2313居多，也有部分是采用UTF-8格式的，本文选择GB2313编码方式的串口调试助手。</p>
 <p>Keil-MDK软件是开发嵌入式的IDE，可从网上下载，建议下载5.28版本，破解操作也可从网上参考，本文不赘述。Keil-MDK编程的编码格式设置一定要与串口调试助手一致，这样才不会出现中文乱码的问题，建议选择GB2313。</p>
-<p>MDK-keil编码设置如下<br><img src="/3704b608a5d8ba50ed8602d823dfd7c6.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>MDK-keil编码设置如下<br><img src="/3704b608a5d8ba50ed8602d823dfd7c6.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>4.准备一份STM32中文参考手册，便于开发过程中查询串口的使用方法以及相关寄存器的设置。</p>
 <p>5.准备一份STM32固件库手册，便于开发程序时查询标准固件库函数使用方法，加快开发效率。</p>
 <p>6.找到一份STM32工程模板文件，可以直接从固件库文件中复制，也可以自己创建，省去工程的创建、文件的添加等机械工作。</p>
-<p>准备资料如下<br><img src="/69af05a070a2137522b182ed890610e7.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>准备资料如下<br><img src="/69af05a070a2137522b182ed890610e7.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h2 id="5-本文设计的关键点"><a href="#5-本文设计的关键点" class="headerlink" title="5 本文设计的关键点"></a>5 本文设计的关键点</h2><h3 id="5-1-校验位设置"><a href="#5-1-校验位设置" class="headerlink" title="5.1 校验位设置"></a>5.1 校验位设置</h3><p>通过查阅STM32中文手册发现，USART_CR1寄存器中的PCE位可以使能奇偶校验位的产生，M位可以设置数据字的长度，如下图所示：</p>
-<p>USART_CR1寄存器PCE位-决定是否产生校验位<br><img src="/b1f7f3649904c65bc156fecdfbe5865a.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<p>USART_CR1寄存器M位-决定数据字长度<br><img src="/d2da54407cf675ffc95b547c3395786d.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>USART_CR1寄存器PCE位-决定是否产生校验位<br><img src="/b1f7f3649904c65bc156fecdfbe5865a.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>USART_CR1寄存器M位-决定数据字长度<br><img src="/d2da54407cf675ffc95b547c3395786d.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>​    M位和PCE位的值两者共同决定USART帧的格式，一共四种，如下图所示。根据设计要求，本文设置为M位为1，PCE位为1，即字长为9，校验位选择奇校验（也可选择偶校验）。</p>
-<p><img src="/69c6c6a4d00dbf239aaa727533135544.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p><img src="/69c6c6a4d00dbf239aaa727533135544.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>​    通过查阅STM32固件库手册，复制串口参数设置代码示例，并进行修改，下面展示关键部分的参数设置。</p>
-<p>串口初始化参数设置如下<br><img src="/a6601aa53894f9cdd7f82f873732b9bb.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>串口初始化参数设置如下<br><img src="/a6601aa53894f9cdd7f82f873732b9bb.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h3 id="5-2-串口中断设置"><a href="#5-2-串口中断设置" class="headerlink" title="5.2 串口中断设置"></a>5.2 串口中断设置</h3><p>串口通信的数据接收、发送程序一般有中断和查询（也叫轮询）两种方式，相对来说，中断方式对CUP的资源占用较少，响应也更及时，本文使用中断方式接收来自上位机电脑的数据。</p>
 <p>翻阅STM32中文手册发现，STM32单片机的串口中断请求事件有以下几种，当表中事件发生时，只要设置了相应的中断使能，都会通过嵌套中断向量（NVIC）的向量表进入到串口中断服务程序中，可以在服务程序中查询相应事件的标志位判断当前是那一种事件发生。为了检测数据的接收、接收完成、奇偶校验出错这三种情况，本文设置的三个串口中断事件，下图中用红框标注。</p>
 <p>①接收数据就绪可读表示对方已经发送了一个字节数据，这个数据现在在硬件接收缓冲区中，并且现在可以读出数据。当第一次发生此事件时代表数据传输的开始。</p>
 <p>②检测到空闲线路表示在对方传输上一字节数据后，又过了一个字节的传输时长，单片机仍然没有接收到数据，可以代表数据发送的结束，也就是完成了一次数据的传输。</p>
 <p>③奇偶校验错表示按照约定的校验规则，当前字节的数据发生了错误。</p>
-<p>STM32串口中断事件 如下（注：表中的TXNE标志应为RXNE）<br><img src="/8e20f88b18a45a162a5edb45b96cb22e.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<p>根据固件库手册和库函数注释，使能上述三个串口中断事件的代码如下：<br><img src="/fef28821b63ca9b0e3438be0f136d77c.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>STM32串口中断事件 如下（注：表中的TXNE标志应为RXNE）<br><img src="/8e20f88b18a45a162a5edb45b96cb22e.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>根据固件库手册和库函数注释，使能上述三个串口中断事件的代码如下：<br><img src="/fef28821b63ca9b0e3438be0f136d77c.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h3 id="5-3-串口中断服务程序"><a href="#5-3-串口中断服务程序" class="headerlink" title="5.3 串口中断服务程序"></a>5.3 串口中断服务程序</h3><p>根据STM32中文手册，串口中断事件相应的标志位在状态寄存器SR中，在串口中断服务程序中查询这几个标志位的值就可知道发生了什么事件。SR寄存器中的三个标志位介绍如下所示：</p>
 <p><img src="/13019c8d189c144e0d1560f4b60b55cd.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p><img src="/f9f18e32b7e36847b802cf50fd9cfff3.png" srcset="/img/loading.gif" lazyload alt="img"></p>
@@ -524,7 +524,7 @@
 <p>USART1-&gt;DR;  &#x2F;&#x2F;再读数据寄存器</p>
 <p>串口1的中断服务程序名为void USART1_IRQHandler(void)，位于stm32f10x_it.c文件中，当然，也可以写在其他位置，但程序名不要改变，同时要处理好各c文件之间依赖关系。</p>
 <p>串口中断服务程序如下</p>
-<p><img src="/b4ba8a4aa42d6fdcff91482c28afa69b.png" srcset="/img/loading.gif" lazyload alt="img">  </p>
+<p><img src="/b4ba8a4aa42d6fdcff91482c28afa69b.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h2 id="6-程序设计"><a href="#6-程序设计" class="headerlink" title="6 程序设计"></a>6 程序设计</h2><p>在本文的程序设计中，要注意以下几个要点。</p>
 <ol>
 <li>有奇偶校验位时，串口初始化程序中的字长设置为9，串口调试助手中的数据位选择8；</li>
@@ -533,15 +533,15 @@
 <li>可以考虑在解析数据前关闭中断，串口输出数据后再打开中断。</li>
 </ol>
 <p>整个程序有四个关键部分，分别是主函数、串口中断处理、数据解析、串口输出，下面分别对它们的流程做简单介绍。串口输出和数据解析函数放在附录中。</p>
-<h3 id="6-1-主函数"><a href="#6-1-主函数" class="headerlink" title="6.1 主函数"></a>6.1 主函数</h3><p>主函数流程如下<br><img src="/b0a272312bcbf2e8365d85b94a243ef4.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<p>主函数程序如下<br><img src="/efab04c1cb52eeea37d39600cfbd105a.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<h3 id="6-2-串口中断处理函数"><a href="#6-2-串口中断处理函数" class="headerlink" title="6.2 串口中断处理函数"></a>6.2 串口中断处理函数</h3><p>串口中断处理函数流程如下<br><img src="/ddaa23501921b551ca633332f34a3a21.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<p>接收中断回调函数如下<br><img src="/fd5f09bf7492f90a841606c944feb6a0.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<p>空闲中断回调函数如下<br><img src="/a7db4fcf205cb5af55bf3f006dbfc2f2.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h3 id="6-1-主函数"><a href="#6-1-主函数" class="headerlink" title="6.1 主函数"></a>6.1 主函数</h3><p>主函数流程如下<br><img src="/b0a272312bcbf2e8365d85b94a243ef4.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>主函数程序如下<br><img src="/efab04c1cb52eeea37d39600cfbd105a.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="6-2-串口中断处理函数"><a href="#6-2-串口中断处理函数" class="headerlink" title="6.2 串口中断处理函数"></a>6.2 串口中断处理函数</h3><p>串口中断处理函数流程如下<br><img src="/ddaa23501921b551ca633332f34a3a21.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>接收中断回调函数如下<br><img src="/fd5f09bf7492f90a841606c944feb6a0.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>空闲中断回调函数如下<br><img src="/a7db4fcf205cb5af55bf3f006dbfc2f2.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>校验出错中断回调函数如下<br><img src="/bb84304a4cb9cfe534be9dec2b7562dd.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h3 id="6-3-数据解析函数"><a href="#6-3-数据解析函数" class="headerlink" title="6.3 数据解析函数"></a>6.3 数据解析函数</h3><p>数据解析函数流程如下<br><img src="/463d7d93c2adf82abd46eb80ab62f033.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<h3 id="6-4-串口输出函数"><a href="#6-4-串口输出函数" class="headerlink" title="6.4 串口输出函数"></a>6.4 串口输出函数</h3><p>串口输出流程如下<br><img src="/aeae0a15430f7411c17ed80859860754.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
-<h2 id="7-结果演示"><a href="#7-结果演示" class="headerlink" title="7 结果演示"></a>7 结果演示</h2><p>打开串口调试助手，设置好串口参数，按各种情况进行测试，演示效果如下<br><img src="/32c0d42ebdf1a3f646fa8655c1154f7d.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h3 id="6-3-数据解析函数"><a href="#6-3-数据解析函数" class="headerlink" title="6.3 数据解析函数"></a>6.3 数据解析函数</h3><p>数据解析函数流程如下<br><img src="/463d7d93c2adf82abd46eb80ab62f033.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="6-4-串口输出函数"><a href="#6-4-串口输出函数" class="headerlink" title="6.4 串口输出函数"></a>6.4 串口输出函数</h3><p>串口输出流程如下<br><img src="/aeae0a15430f7411c17ed80859860754.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="7-结果演示"><a href="#7-结果演示" class="headerlink" title="7 结果演示"></a>7 结果演示</h2><p>打开串口调试助手，设置好串口参数，按各种情况进行测试，演示效果如下<br><img src="/32c0d42ebdf1a3f646fa8655c1154f7d.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h2 id="问题解答"><a href="#问题解答" class="headerlink" title="问题解答"></a>问题解答</h2><p><strong>问题1</strong>：开始和结束错误标志都设置为2会不会分不清？</p>
 <p>答：因为指令的开始和结束部分出现错误时都表示这是一个错误的指令，所以程序中将其错误类型都设置为2，这样做确实是无法分清到底是指令的开始部分发生了错误还是结束部分发送错误。如果确实有必要将这两种错误分开，可以考虑在程序中将这两种情况设置不同的错误标志号。</p>
 <p><strong>问题2</strong>：为啥选奇校验和偶校验哪个都对？</p>
@@ -650,7 +650,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年3月25日</div>
+          <div>2025年3月26日</div>
         </div>
       
       

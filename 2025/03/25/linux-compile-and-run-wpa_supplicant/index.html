@@ -27,7 +27,7 @@
 <meta property="og:description" content="本文详细介绍了在ubuntu中编译、安装、调试wpa_supplicant程序的过程，可以给无线驱动开发者、爱好者一些参考。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-25T05:10:00.000Z">
-<meta property="article:modified_time" content="2025-03-25T14:20:11.792Z">
+<meta property="article:modified_time" content="2025-03-25T16:50:54.649Z">
 <meta property="article:author" content="李珊">
 <meta property="article:tag" content="wifi">
 <meta name="twitter:card" content="summary_large_image">
@@ -413,7 +413,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年3月25日 晚上
+                    本文最后更新于 2025年3月26日 凌晨
                   
                 
               </p>
@@ -455,7 +455,7 @@
 <p>注意：.&#x2F;config –openssldir命令中指定了openssl的安装路径</p>
 <p>因为本文使用的系统已经安装过openssl，所以将已安装的openssl软链接改为openssl_old，再创建了一个新的openssl软链接</p>
 <p>最后输出结果如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">OpenSSL 1.0.1u  22 Sep 2016<br>built on: Tue Sep 12 11:14:06 2023<br>platform: linux-x86_64<br>options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) idea(int) blowfish(idx) <br>compiler: gcc -I. -I.. -I../include  -fPIC -DOPENSSL_PIC -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -Wa,--noexecstack -m64 -DL_ENDIAN -O3 -Wall -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DWHIRLPOOL_ASM -DGHASH_ASM<br>OPENSSLDIR: <span class="hljs-string">&quot;/usr/local/bin/openssl-1.0.1u&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">OpenSSL 1.0.1u  22 Sep 2016<br>built on: Tue Sep 12 11:14:06 2023<br>platform: linux-x86_64<br>options:  bn(64,64) rc4(16x,int) des(idx,cisc,16,int) idea(int) blowfish(idx)<br>compiler: gcc -I. -I.. -I../include  -fPIC -DOPENSSL_PIC -DOPENSSL_THREADS -D_REENTRANT -DDSO_DLFCN -DHAVE_DLFCN_H -Wa,--noexecstack -m64 -DL_ENDIAN -O3 -Wall -DOPENSSL_IA32_SSE2 -DOPENSSL_BN_ASM_MONT -DOPENSSL_BN_ASM_MONT5 -DOPENSSL_BN_ASM_GF2m -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM -DMD5_ASM -DAES_ASM -DVPAES_ASM -DBSAES_ASM -DWHIRLPOOL_ASM -DGHASH_ASM<br>OPENSSLDIR: <span class="hljs-string">&quot;/usr/local/bin/openssl-1.0.1u&quot;</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="1-4-安装libnl、libssl和libdbus"><a href="#1-4-安装libnl、libssl和libdbus" class="headerlink" title="1.4 安装libnl、libssl和libdbus"></a>1.4 安装libnl、libssl和libdbus</h3><p>安装wpa_supplicant还需要libnl、libssl和libdbus库的支持</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get update<br>sudo apt-get install libdbus-1-dev<br>sudo apt-get install libssl-dev<br>sudo apt-get install libnl-3-dev libnl-3-200 libnl-genl-3-dev libnl-route-3-dev<br></code></pre></td></tr></table></figure>
@@ -484,7 +484,7 @@
 <p>1、wpa_passphrase：用于向conf配置文件中添加网络配置信息，例如</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo wpa_passphrase ssid passphrase | sudo <span class="hljs-built_in">tee</span> wpa_supplicant.conf`<br></code></pre></td></tr></table></figure>
 
-<p>2、wpa_supplicant：用于启动wpa_supplicant应用程序，例如 </p>
+<p>2、wpa_supplicant：用于启动wpa_supplicant应用程序，例如</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo wpa_supplicant -D nl80211 -i wlan0 -c wpa_supplicant.conf<br></code></pre></td></tr></table></figure>
 
 <p>3、wpa_cli：用于与 wpa_supplicant控制接口进行交互的命令行工具，例如</p>
@@ -522,7 +522,7 @@
 
 
 <p>在文件中输入以下内容</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">ctrl_interface=/var/run/wpa_supplicant<br>update_config=1<br>country=CN<br>ap_scan=1<br> <br>network=&#123;<br>        ssid=<span class="hljs-string">&quot;xxxxxx&quot;</span><br>        psk=<span class="hljs-string">&quot;password&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">ctrl_interface=/var/run/wpa_supplicant<br>update_config=1<br>country=CN<br>ap_scan=1<br><br>network=&#123;<br>        ssid=<span class="hljs-string">&quot;xxxxxx&quot;</span><br>        psk=<span class="hljs-string">&quot;password&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 <p>然后插入一个免驱的usb无线网卡，虽然免驱，其实是Linux系统已经自带了该类型网卡的驱动</p>
@@ -559,7 +559,7 @@
 
 
 <p>若提示已经运行了wpa_supplicant，初始化wpa_supplicant失败，如下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">ctrl_iface exists and seems to be <span class="hljs-keyword">in</span> use - cannot override it<br>Delete <span class="hljs-string">&#x27;/var/run/wpa_supplicant/wlan0&#x27;</span> manually <span class="hljs-keyword">if</span> it is not used anymore<br>Failed to initialize control interface <span class="hljs-string">&#x27;/var/run/wpa_supplicant&#x27;</span>.<br>You may have another wpa_supplicant process already running or the file was<br>left by an unclean termination of wpa_supplicant <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> <span class="hljs-keyword">case</span> you will need<br>to manually remove this file before starting wpa_supplicant again.<br> <br>wlan0: CTRL-EVENT-DSCP-POLICY clear_all<br>wlan0: CTRL-EVENT-DSCP-POLICY clear_all<br>nl80211: deinit ifname=wlan0 disabled_11b_rates=0<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">ctrl_iface exists and seems to be <span class="hljs-keyword">in</span> use - cannot override it<br>Delete <span class="hljs-string">&#x27;/var/run/wpa_supplicant/wlan0&#x27;</span> manually <span class="hljs-keyword">if</span> it is not used anymore<br>Failed to initialize control interface <span class="hljs-string">&#x27;/var/run/wpa_supplicant&#x27;</span>.<br>You may have another wpa_supplicant process already running or the file was<br>left by an unclean termination of wpa_supplicant <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> <span class="hljs-keyword">case</span> you will need<br>to manually remove this file before starting wpa_supplicant again.<br><br>wlan0: CTRL-EVENT-DSCP-POLICY clear_all<br>wlan0: CTRL-EVENT-DSCP-POLICY clear_all<br>nl80211: deinit ifname=wlan0 disabled_11b_rates=0<br></code></pre></td></tr></table></figure>
 
 
 <p>则运行以下命令，删除已经存在的socket文件wlan0，并杀死所有的wpa_supplicant进程</p>
@@ -590,7 +590,7 @@
 
 <h3 id="2-3-启动wpa-cli程序"><a href="#2-3-启动wpa-cli程序" class="headerlink" title="2.3 启动wpa_cli程序"></a>2.3 启动wpa_cli程序</h3><p>新建终端，运行wpa_cli程序</p>
 <p>wpa_cli操作命令示例</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">wpa_cli -i wlan0 scan         　//扫描<br>wpa_cli -i wlan0 scan_result 　 //显示扫描结果<br>wpa_cli -i wlan0 status        //查看状态<br>wpa_cli -i wlan0 mib         　//获取设备的mib信息<br>wpa_cli -i wlan0 ping           //pings wpa_supplicant，wpa_supplicant收到后回复PONG<br> <br>wpa_cli -i wlan0 add_network   //添加网络，会返回&lt;network <span class="hljs-built_in">id</span>&gt;<br>wpa_cli set_network &lt;network <span class="hljs-built_in">id</span>&gt;  ssid <span class="hljs-string">&quot;name&quot;</span>  //设置网络名称 <br>wpa_cli set_network &lt;network <span class="hljs-built_in">id</span>&gt;  psk <span class="hljs-string">&quot;psk&quot;</span>　　 //设置网络密码<br>wpa_cli set_network &lt;network <span class="hljs-built_in">id</span>&gt; key_mgmt NONE  //无密码的网络<br>wpa_cli -i wlan0 save_config   //保存网络信息到配置文件<br> <br>wpa_cli -i wlan0 list_network  //列出网络<br>wpa_cli -i wlan0 select_network  &lt;network <span class="hljs-built_in">id</span>&gt;  //选择网络<br>wpa_cli -i wlan0 enable_network  &lt;network <span class="hljs-built_in">id</span>&gt;  //使能网络，也就是连接网络<br>wpa_cli -i wlan0 disable_network &lt;network <span class="hljs-built_in">id</span>&gt;  //断开网络<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">wpa_cli -i wlan0 scan         　//扫描<br>wpa_cli -i wlan0 scan_result 　 //显示扫描结果<br>wpa_cli -i wlan0 status        //查看状态<br>wpa_cli -i wlan0 mib         　//获取设备的mib信息<br>wpa_cli -i wlan0 ping           //pings wpa_supplicant，wpa_supplicant收到后回复PONG<br><br>wpa_cli -i wlan0 add_network   //添加网络，会返回&lt;network <span class="hljs-built_in">id</span>&gt;<br>wpa_cli set_network &lt;network <span class="hljs-built_in">id</span>&gt;  ssid <span class="hljs-string">&quot;name&quot;</span>  //设置网络名称<br>wpa_cli set_network &lt;network <span class="hljs-built_in">id</span>&gt;  psk <span class="hljs-string">&quot;psk&quot;</span>　　 //设置网络密码<br>wpa_cli set_network &lt;network <span class="hljs-built_in">id</span>&gt; key_mgmt NONE  //无密码的网络<br>wpa_cli -i wlan0 save_config   //保存网络信息到配置文件<br><br>wpa_cli -i wlan0 list_network  //列出网络<br>wpa_cli -i wlan0 select_network  &lt;network <span class="hljs-built_in">id</span>&gt;  //选择网络<br>wpa_cli -i wlan0 enable_network  &lt;network <span class="hljs-built_in">id</span>&gt;  //使能网络，也就是连接网络<br>wpa_cli -i wlan0 disable_network &lt;network <span class="hljs-built_in">id</span>&gt;  //断开网络<br></code></pre></td></tr></table></figure>
 
 
 <p>更多详细命令，输入以下命令查看</p>
@@ -737,7 +737,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年3月25日</div>
+          <div>2025年3月26日</div>
         </div>
       
       
