@@ -26,11 +26,13 @@
 <meta property="og:site_name" content="比特零幺">
 <meta property="og:description" content="本文主要介绍了开源路由器编译系统OpenWrt的一些基本操作。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.bit01.top/image-20250325160146350.png">
 <meta property="article:published_time" content="2025-03-14T02:19:00.000Z">
-<meta property="article:modified_time" content="2025-03-16T15:19:36.205Z">
+<meta property="article:modified_time" content="2025-03-25T14:20:11.800Z">
 <meta property="article:author" content="李珊">
 <meta property="article:tag" content="工具">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.bit01.top/image-20250325160146350.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -290,7 +292,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          127 字
+          176 字
         
       </span>
     
@@ -404,7 +406,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年3月16日 晚上
+                    本文最后更新于 2025年3月25日 晚上
                   
                 
               </p>
@@ -420,6 +422,9 @@
 
 <h2 id="3-配置openwrt"><a href="#3-配置openwrt" class="headerlink" title="3 配置openwrt"></a>3 配置openwrt</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">make menuconfig<br></code></pre></td></tr></table></figure>
 
+<p>例如作者手上有一款Linksys E8450的路由器，相关信息见：<a target="_blank" rel="noopener" href="https://openwrt.org/toh/linksys/e8450">https://openwrt.org/toh/linksys/e8450</a></p>
+<p>现在希望给该路由器刷OpenWrt系统，在配置界面设置的信息如下</p>
+<p><img src="/image-20250325160146350.png" srcset="/img/loading.gif" lazyload alt="image-20250325160146350"></p>
 <h2 id="4-编译固件"><a href="#4-编译固件" class="headerlink" title="4 编译固件"></a>4 编译固件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">make V=s                      // 开始编译固件<br></code></pre></td></tr></table></figure>
 
 <h2 id="5-打包固件"><a href="#5-打包固件" class="headerlink" title="5 打包固件"></a>5 打包固件</h2><p>编译完成后，在<code>bin/targets/</code>目录下可以看到生成的固件。</p>
@@ -488,7 +493,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年3月16日</div>
+          <div>2025年3月25日</div>
         </div>
       
       
@@ -720,7 +725,7 @@
     
       <span>
         <a
-          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=12345678"
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51019002007839"
           rel="nofollow noopener"
           class="beian-police"
           target="_blank"
@@ -729,7 +734,7 @@
             <span style="visibility: hidden; width: 0">|</span>
             <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
           
-          <span>蜀公网安备12345678号</span>
+          <span>川公网安备51019002007839号</span>
         </a>
       </span>
     

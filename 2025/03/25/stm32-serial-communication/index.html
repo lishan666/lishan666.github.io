@@ -1,0 +1,1057 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="李珊">
+  <meta name="keywords" content="博客，嵌入式，linux，python，c，内核驱动，wifi网络">
+  
+    <meta name="description" content="本文模拟超市打印机工作-使用接收中断、空闲中断、校验中断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32串口通信程序介绍">
+<meta property="og:url" content="https://www.bit01.top/2025/03/25/stm32-serial-communication/index.html">
+<meta property="og:site_name" content="比特零幺">
+<meta property="og:description" content="本文模拟超市打印机工作-使用接收中断、空闲中断、校验中断">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.bit01.top/7d66868b08c0df9f631f1e62cdecc277.png">
+<meta property="og:image" content="https://www.bit01.top/1abbda00a03293495b37648410c57113.png">
+<meta property="og:image" content="https://www.bit01.top/2b62c0194d88fe177f8fb17f56f04952.png">
+<meta property="og:image" content="https://www.bit01.top/f9d7f238fbb78e7704d92edff281e65e.png">
+<meta property="og:image" content="https://www.bit01.top/3704b608a5d8ba50ed8602d823dfd7c6.png">
+<meta property="og:image" content="https://www.bit01.top/69af05a070a2137522b182ed890610e7.png">
+<meta property="og:image" content="https://www.bit01.top/b1f7f3649904c65bc156fecdfbe5865a.png">
+<meta property="og:image" content="https://www.bit01.top/d2da54407cf675ffc95b547c3395786d.png">
+<meta property="og:image" content="https://www.bit01.top/69c6c6a4d00dbf239aaa727533135544.png">
+<meta property="og:image" content="https://www.bit01.top/a6601aa53894f9cdd7f82f873732b9bb.png">
+<meta property="og:image" content="https://www.bit01.top/8e20f88b18a45a162a5edb45b96cb22e.png">
+<meta property="og:image" content="https://www.bit01.top/fef28821b63ca9b0e3438be0f136d77c.png">
+<meta property="og:image" content="https://www.bit01.top/13019c8d189c144e0d1560f4b60b55cd.png">
+<meta property="og:image" content="https://www.bit01.top/f9f18e32b7e36847b802cf50fd9cfff3.png">
+<meta property="og:image" content="https://www.bit01.top/e6d6632b3b5138596d2d9cd05337789a.png">
+<meta property="og:image" content="https://www.bit01.top/b4ba8a4aa42d6fdcff91482c28afa69b.png">
+<meta property="og:image" content="https://www.bit01.top/b0a272312bcbf2e8365d85b94a243ef4.png">
+<meta property="og:image" content="https://www.bit01.top/efab04c1cb52eeea37d39600cfbd105a.png">
+<meta property="og:image" content="https://www.bit01.top/ddaa23501921b551ca633332f34a3a21.png">
+<meta property="og:image" content="https://www.bit01.top/fd5f09bf7492f90a841606c944feb6a0.png">
+<meta property="og:image" content="https://www.bit01.top/a7db4fcf205cb5af55bf3f006dbfc2f2.png">
+<meta property="og:image" content="https://www.bit01.top/bb84304a4cb9cfe534be9dec2b7562dd.png">
+<meta property="og:image" content="https://www.bit01.top/463d7d93c2adf82abd46eb80ab62f033.png">
+<meta property="og:image" content="https://www.bit01.top/aeae0a15430f7411c17ed80859860754.png">
+<meta property="og:image" content="https://www.bit01.top/32c0d42ebdf1a3f646fa8655c1154f7d.png">
+<meta property="og:image" content="https://www.bit01.top/b2eee2b9777f769eb190cda7a48a8928.png">
+<meta property="og:image" content="https://www.bit01.top/90645357ced89ef8de50648623d21f19.png">
+<meta property="article:published_time" content="2025-03-25T05:28:58.000Z">
+<meta property="article:modified_time" content="2025-03-25T14:20:11.802Z">
+<meta property="article:author" content="李珊">
+<meta property="article:tag" content="STM32">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.bit01.top/7d66868b08c0df9f631f1e62cdecc277.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>STM32串口通信程序介绍 - 比特零幺</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.bit01.top","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":20,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"shell"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"85587809bd52c224768d7b180703dc22","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?85587809bd52c224768d7b180703dc22";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 30vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>比特零幺</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/record/" target="_self">
+                <i class="iconfont icon-books"></i>
+                <span>记录</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/disclaimer/" target="_self">
+                <i class="iconfont icon-speakernotes"></i>
+                <span>声明</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="STM32串口通信程序介绍"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        李珊
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-25 13:28" pubdate>
+          2025年3月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="嵌入式开发"
+        id="heading-459eb3d2542f76caed2484fcae1beba5" role="tab" data-toggle="collapse" href="#collapse-459eb3d2542f76caed2484fcae1beba5"
+        aria-expanded="true"
+      >
+        嵌入式开发
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-459eb3d2542f76caed2484fcae1beba5"
+           role="tabpanel" aria-labelledby="heading-459eb3d2542f76caed2484fcae1beba5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/03/25/stm32-serial-communication/" title="STM32串口通信程序介绍"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">STM32串口通信程序介绍</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">STM32串口通信程序介绍</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年3月25日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Gitee 项目资料  <a target="_blank" rel="noopener" href="https://gitee.com/lishan666/Usart">https://gitee.com/lishan666/Usart</a></p>
+<h2 id="1-项目简介"><a href="#1-项目简介" class="headerlink" title="1 项目简介"></a>1 项目简介</h2><p>超市的收银台一般都会放置一台小型打印机，其任务是将顾客的消费金额等信息打印在一张小票上，那么打印机又是如何知道自己该打印那些内容呢？</p>
+<p>本文以经典的RS232串口通信来模拟收银台电脑与打印机之间的通信工作流程，系统模拟说明如下。</p>
+<ol>
+<li>用笔记本电脑模拟收银台电脑，安装串口通信助手软件作为上位机界面；</li>
+<li>用STM32F103C8T6单片机模拟打印机控制器；</li>
+<li>用PL2303HX模块模拟USB到TTL电平的转换；</li>
+<li>在串口通信助手发送区输入打印指令模拟结算操作；</li>
+<li>在串口通信助手接收区显示打印结果模拟打印小票。</li>
+</ol>
+<p>本文对超市微型打印机的通信部分进行研究设计，系统设计目标是：</p>
+<ol>
+<li><p>搭建电脑到打印机之间的RS232串口通信电路；</p>
+</li>
+<li><p>设计串口通信程序，程序运行在打印机控制器STM32F103C8T6中；</p>
+</li>
+<li><p>通过串口调试助手对通信效果进行演示。</p>
+</li>
+</ol>
+<p>需要说明的是，超市收银台电脑与打印机之间的通信方式不止RS232串口一种，常见的还有USB通信、LPT并口通信、WiFi通信等方式。它们本质上都是一种数据传输手段，只不过其工作方式、成本、实现复杂度等有所区别。</p>
+<h2 id="2-设计要求"><a href="#2-设计要求" class="headerlink" title="2 设计要求"></a>2 设计要求</h2><p><strong>基础部分</strong></p>
+<p>串口通信的具体设计要求如下：</p>
+<p>（1）波特率4800bps，一位起始位，八位有效数据位，一位奇偶校验位；</p>
+<p>（2）使用串口调试助手发送一个数据打印命令“@PrintData12345678900#”；</p>
+<p>（3）单片机收到命令后，解析命令，输出数据“1234567890”，然后给上位机发送“数据已成功打印”。</p>
+<p><strong>扩展部分</strong></p>
+<p>为了加深对串口通信知识的理解和运用，本文提出以下扩展要求并进行实现：</p>
+<p>（1）每次输出打印信息及提示信息结束后都进行换行显示；</p>
+<p>（2）系统上电工作时，通过串口通信助手显示系统正常工作的提示信息；</p>
+<p>（3）当打印指令错误时，输出“instruction error”进行提示；</p>
+<p>（4）当接收的字符数大于设定的缓冲区大小时，输出“Overflow error”；</p>
+<p>（5）当出现校验错误时，输出“校验错误，请重新发送命令”。</p>
+<h2 id="3-总体设计方案"><a href="#3-总体设计方案" class="headerlink" title="3 总体设计方案"></a>3 总体设计方案</h2><p>使用笔记本电脑与STM32单片机进行数据交互，模拟超市电脑与打印机之间的通信过程。笔记本电脑上安装有串口调试助手软件，串口调试助手作为上位机可以实现人机界面交互的功能，同时也是检验串口通信是否正常的工具。</p>
+<p>笔记本电脑一般没有串口，但至少有一个USB口。单片机的串口是映射到GPIO上的，本文只需要用到接收、发送引脚，也就是2个GPIO，再加上电源和地，一共4个单片机引脚。笔记本的USB口和单片机串口之间不能直接相连，因为两者的工作电平逻辑不一致，需要通过一个USB转TTL模块进行电平转换，同时笔记本电脑上需要安装配套的USB转串口驱动程序。</p>
+<p>系统设计方案如下<br><img src="/7d66868b08c0df9f631f1e62cdecc277.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h2 id="4-设计前的思考和准备"><a href="#4-设计前的思考和准备" class="headerlink" title="4 设计前的思考和准备"></a>4 设计前的思考和准备</h2><p><strong>思考：</strong></p>
+<ol>
+<li>串口的参数设置中有一位校验位，如何实现，又如何体现校验的作用；</li>
+<li>如何判断串口数据传输的开始、结束；</li>
+<li>如何判断命令是否符合要求，并取出中间的数据部分；</li>
+<li>能否直接输出中文。</li>
+</ol>
+<p><strong>准备：</strong></p>
+<ol>
+<li>搭建硬件电路连线</li>
+</ol>
+<p>​    在开发过程中，本文还连接了ST-Link调试器，使用调试器可以让程序下载更快，同时能进行硬件仿真调试，可以提高开发效率，当然也可以直接使用串口下载程序。项目完成后，实际运行时不需要再连接调试器。                             </p>
+<p>硬件连接示意如下<br><img src="/1abbda00a03293495b37648410c57113.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>2.安装USB转串口驱动程序</p>
+<p>本文用到的USB转TTL模块芯片为PL2303HX，驱动程序可在网上进行下载，双击驱动程序按提示完成驱动安装。其他芯片的驱动安装方法类似。</p>
+<p>安装USB转串口驱动如下<br><img src="/2b62c0194d88fe177f8fb17f56f04952.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>驱动安装完成后，插上USB转TTL模块，在设备管理器中选择端口，如果能够看到识别到的驱动程序和端口号，表示驱动安装成功。否则，右键选择更新驱动程序，从我的计算机驱动程序中选择2009年的版本，当出现下图界面，能分配到一个端口号即表示安装成功。其它的芯片模块可能在驱动程序安装完后就能看到端口号，此时不需要进行驱动程序的更新操作。</p>
+<p>驱动安装成功示意图如下<br><img src="/f9d7f238fbb78e7704d92edff281e65e.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>3.下载串口调试助手软件、Keil-MDk软件</p>
+<p>串口调试助手网上非常多，可以自行选择，但是要注意，一定要知道这款串口助手对中文字符的编码采用什么格式，网上资源以GB2313居多，也有部分是采用UTF-8格式的，本文选择GB2313编码方式的串口调试助手。</p>
+<p>Keil-MDK软件是开发嵌入式的IDE，可从网上下载，建议下载5.28版本，破解操作也可从网上参考，本文不赘述。Keil-MDK编程的编码格式设置一定要与串口调试助手一致，这样才不会出现中文乱码的问题，建议选择GB2313。</p>
+<p>MDK-keil编码设置如下<br><img src="/3704b608a5d8ba50ed8602d823dfd7c6.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>4.准备一份STM32中文参考手册，便于开发过程中查询串口的使用方法以及相关寄存器的设置。</p>
+<p>5.准备一份STM32固件库手册，便于开发程序时查询标准固件库函数使用方法，加快开发效率。</p>
+<p>6.找到一份STM32工程模板文件，可以直接从固件库文件中复制，也可以自己创建，省去工程的创建、文件的添加等机械工作。</p>
+<p>准备资料如下<br><img src="/69af05a070a2137522b182ed890610e7.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h2 id="5-本文设计的关键点"><a href="#5-本文设计的关键点" class="headerlink" title="5 本文设计的关键点"></a>5 本文设计的关键点</h2><h3 id="5-1-校验位设置"><a href="#5-1-校验位设置" class="headerlink" title="5.1 校验位设置"></a>5.1 校验位设置</h3><p>通过查阅STM32中文手册发现，USART_CR1寄存器中的PCE位可以使能奇偶校验位的产生，M位可以设置数据字的长度，如下图所示：</p>
+<p>USART_CR1寄存器PCE位-决定是否产生校验位<br><img src="/b1f7f3649904c65bc156fecdfbe5865a.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>USART_CR1寄存器M位-决定数据字长度<br><img src="/d2da54407cf675ffc95b547c3395786d.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>​    M位和PCE位的值两者共同决定USART帧的格式，一共四种，如下图所示。根据设计要求，本文设置为M位为1，PCE位为1，即字长为9，校验位选择奇校验（也可选择偶校验）。</p>
+<p><img src="/69c6c6a4d00dbf239aaa727533135544.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>​    通过查阅STM32固件库手册，复制串口参数设置代码示例，并进行修改，下面展示关键部分的参数设置。</p>
+<p>串口初始化参数设置如下<br><img src="/a6601aa53894f9cdd7f82f873732b9bb.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h3 id="5-2-串口中断设置"><a href="#5-2-串口中断设置" class="headerlink" title="5.2 串口中断设置"></a>5.2 串口中断设置</h3><p>串口通信的数据接收、发送程序一般有中断和查询（也叫轮询）两种方式，相对来说，中断方式对CUP的资源占用较少，响应也更及时，本文使用中断方式接收来自上位机电脑的数据。</p>
+<p>翻阅STM32中文手册发现，STM32单片机的串口中断请求事件有以下几种，当表中事件发生时，只要设置了相应的中断使能，都会通过嵌套中断向量（NVIC）的向量表进入到串口中断服务程序中，可以在服务程序中查询相应事件的标志位判断当前是那一种事件发生。为了检测数据的接收、接收完成、奇偶校验出错这三种情况，本文设置的三个串口中断事件，下图中用红框标注。</p>
+<p>①接收数据就绪可读表示对方已经发送了一个字节数据，这个数据现在在硬件接收缓冲区中，并且现在可以读出数据。当第一次发生此事件时代表数据传输的开始。</p>
+<p>②检测到空闲线路表示在对方传输上一字节数据后，又过了一个字节的传输时长，单片机仍然没有接收到数据，可以代表数据发送的结束，也就是完成了一次数据的传输。</p>
+<p>③奇偶校验错表示按照约定的校验规则，当前字节的数据发生了错误。</p>
+<p>STM32串口中断事件 如下（注：表中的TXNE标志应为RXNE）<br><img src="/8e20f88b18a45a162a5edb45b96cb22e.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>根据固件库手册和库函数注释，使能上述三个串口中断事件的代码如下：<br><img src="/fef28821b63ca9b0e3438be0f136d77c.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h3 id="5-3-串口中断服务程序"><a href="#5-3-串口中断服务程序" class="headerlink" title="5.3 串口中断服务程序"></a>5.3 串口中断服务程序</h3><p>根据STM32中文手册，串口中断事件相应的标志位在状态寄存器SR中，在串口中断服务程序中查询这几个标志位的值就可知道发生了什么事件。SR寄存器中的三个标志位介绍如下所示：</p>
+<p><img src="/13019c8d189c144e0d1560f4b60b55cd.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="/f9f18e32b7e36847b802cf50fd9cfff3.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="/e6d6632b3b5138596d2d9cd05337789a.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>从上表看出，标志位置1时，表示该事件发送，此时单片机可以进行相应操作。但要注意，一定要及时清除标志位（清0操作），否则程序会一直进入中断服务程序。对于RXNE位，当读出DR寄存器中的数据后，硬件自动清0，不用再单独写清0的代码。对于PE位和IDLE为，需由软件进行清0，清0操作为先读SR寄存器，再读DR寄存器。串口1软件清除PE、IDLE标志位代码为：</p>
+<p>USART1-&gt;SR;  &#x2F;&#x2F;先读状态寄存器</p>
+<p>USART1-&gt;DR;  &#x2F;&#x2F;再读数据寄存器</p>
+<p>串口1的中断服务程序名为void USART1_IRQHandler(void)，位于stm32f10x_it.c文件中，当然，也可以写在其他位置，但程序名不要改变，同时要处理好各c文件之间依赖关系。</p>
+<p>串口中断服务程序如下</p>
+<p><img src="/b4ba8a4aa42d6fdcff91482c28afa69b.png" srcset="/img/loading.gif" lazyload alt="img">  </p>
+<h2 id="6-程序设计"><a href="#6-程序设计" class="headerlink" title="6 程序设计"></a>6 程序设计</h2><p>在本文的程序设计中，要注意以下几个要点。</p>
+<ol>
+<li>有奇偶校验位时，串口初始化程序中的字长设置为9，串口调试助手中的数据位选择8；</li>
+<li>注意各种标志位的设置与清除，串口发送完数据后一定要等TXE置位后再发送下一位数据；</li>
+<li>主函数、中断请求函数中不宜写太多代码；</li>
+<li>可以考虑在解析数据前关闭中断，串口输出数据后再打开中断。</li>
+</ol>
+<p>整个程序有四个关键部分，分别是主函数、串口中断处理、数据解析、串口输出，下面分别对它们的流程做简单介绍。串口输出和数据解析函数放在附录中。</p>
+<h3 id="6-1-主函数"><a href="#6-1-主函数" class="headerlink" title="6.1 主函数"></a>6.1 主函数</h3><p>主函数流程如下<br><img src="/b0a272312bcbf2e8365d85b94a243ef4.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>主函数程序如下<br><img src="/efab04c1cb52eeea37d39600cfbd105a.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h3 id="6-2-串口中断处理函数"><a href="#6-2-串口中断处理函数" class="headerlink" title="6.2 串口中断处理函数"></a>6.2 串口中断处理函数</h3><p>串口中断处理函数流程如下<br><img src="/ddaa23501921b551ca633332f34a3a21.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>接收中断回调函数如下<br><img src="/fd5f09bf7492f90a841606c944feb6a0.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>空闲中断回调函数如下<br><img src="/a7db4fcf205cb5af55bf3f006dbfc2f2.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<p>校验出错中断回调函数如下<br><img src="/bb84304a4cb9cfe534be9dec2b7562dd.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="6-3-数据解析函数"><a href="#6-3-数据解析函数" class="headerlink" title="6.3 数据解析函数"></a>6.3 数据解析函数</h3><p>数据解析函数流程如下<br><img src="/463d7d93c2adf82abd46eb80ab62f033.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h3 id="6-4-串口输出函数"><a href="#6-4-串口输出函数" class="headerlink" title="6.4 串口输出函数"></a>6.4 串口输出函数</h3><p>串口输出流程如下<br><img src="/aeae0a15430f7411c17ed80859860754.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h2 id="7-结果演示"><a href="#7-结果演示" class="headerlink" title="7 结果演示"></a>7 结果演示</h2><p>打开串口调试助手，设置好串口参数，按各种情况进行测试，演示效果如下<br><img src="/32c0d42ebdf1a3f646fa8655c1154f7d.png" srcset="/img/loading.gif" lazyload alt="img"> </p>
+<h2 id="问题解答"><a href="#问题解答" class="headerlink" title="问题解答"></a>问题解答</h2><p><strong>问题1</strong>：开始和结束错误标志都设置为2会不会分不清？</p>
+<p>答：因为指令的开始和结束部分出现错误时都表示这是一个错误的指令，所以程序中将其错误类型都设置为2，这样做确实是无法分清到底是指令的开始部分发生了错误还是结束部分发送错误。如果确实有必要将这两种错误分开，可以考虑在程序中将这两种情况设置不同的错误标志号。</p>
+<p><strong>问题2</strong>：为啥选奇校验和偶校验哪个都对？</p>
+<p>答：尚不清楚您说的对是什么意思，但是不管在串口助手中选哪一种校验方式，发送指令后单片机都会返回一段信息，可能是成功打印的信息，也可能是错误的提示信息。在演示中出现了一个细节可能与您的提问相关，因为当时发送的是一个错误的指令，所以不管选择奇校验还是偶校验方式，单片机返回的信息都是“instruction error”，这是由于程序中必须对数据进行解析，当解析结果为指令错误时，其错误码为2，也就是输出“instruction error”。换句话说，当出现多种错误时，优先考虑指令是否错误。当发送一个正确的指令时，在串口助手中选择与程序设计中不同的校验方式，就会输出“校验错误，请重新发送命令”。</p>
+<p><strong>问题3</strong>：自己设定的三个中断有优先级的考虑吗？</p>
+<p>答：程序中设置有接收中断、空闲中断、奇偶校验出错中断，但这三个中断本质上都属于串口中断，只不过这是引起串口中断的三种不同事件，当任意一件事件发生时，都会进入同一个串口中断服务函数，可以在中断服务函数中判断对应的标志位是否置1，进而确定是哪一个事件的发生导致进入了串口中断服务函数。因为不可能有两个及以上的事件同时发生，所以这三个中断事件之间不存在优先级的问题。另外，因为整个程序只用到了一个串口中断，不存在其它外设中断源，所以也可以不用对中断优先级进行设置。</p>
+<p><strong>问题4</strong>：可以详细讲解一下中断的过程吗，比如各个中断的优先级，以及如果在主函数解析时中断关闭的方式等</p>
+<p>答：一个外设（比如定时器、串口）要发生中断有三个条件，一是使能了外设，可类比为电路中的干路总开关；二是打开了中断使能位，可类比为支路的第一个开关（有多种事件可触发串口中断，可看成是多条支路）；三是对应事件的中断标志位置1（一般是硬件自动置1），可类比为支路第二个开关，只有三个开关全部合上，才会进入中断服务函数。</p>
+<p>当发生中断时，程序会保存当前的数据和指令执行位置等信息到堆栈，称为现场保护。这个堆栈空间是硬件自动开辟的，数据的保存也是自动完成的，不需要在程序中再进行任何操作。保存完毕后，程序会查询中断向量表，向量表上保存的是各个中断的服务程序的起始地址，通过此地址可跳转到中断服务中执行中断服务体内的程序，当离开中断服务程序时，程序会从堆栈中弹出数据，返回到进入中断前的指令位置，继续执行当前程序。</p>
+<p>中断的优先级一般指的是不同中断源之间的优先级别高低，比如程序中存在定时器中断和串口中断，那么这两个中断可能会同时触发，或者正在串口中断服务程序中执行时，定时器中断又被触发。当发生这些情况时，如果没有相应的处理机制，系统将会陷入混乱。由此引入的中断优先级的概念，即将每个中断源都设置一个优先级别，这样，遇到上述情况时，就可以根据优先级的高低来决定当前去处理那一部分的程序。如果优先级一样，或者在程序中没有设置中断优先级，那么系统会根据向量表中默认的优先级进行处理。</p>
+<p>STM32中文手册中的第9章可以查看中断的相关信息，串口1中断的默认优先级为44。</p>
+<p><img src="/b2eee2b9777f769eb190cda7a48a8928.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="/90645357ced89ef8de50648623d21f19.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>​    STM32通过4位数据对优先级进行编程设置，在程序中设置中断优先级时，有优先级分组、抢占优先级和响应优先级三个参数设置，系统复位后默认的中断优先级优先级分组设置为0，即全部用于响应优先级，不存在抢占优先级。详情见STM32固件库手册，本文不再赘述。在本文程序的主函数中解析数据时，如果要关闭中断，只需要关闭上面提到的三个开关中任意一个即可，最简单的就是直接失能串口外设，其代码为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">USART_Cmd</span>(USART1, DISABLE);    <span class="hljs-comment">/* 失能USART1 */</span><br></code></pre></td></tr></table></figure>
+
+<p>当输出数据后，可以再次开启串口，进行下一次的接收。</p>
+<p><strong>问题5</strong>：如何编写中断服务函数</p>
+<p>答：进入中断服务函数后，首先是对标志位进行判断，确认中断事件，然后是标志位的清除，避免一直进入中断服务函数。接下来有两种思路，一是将发生该中断事件时需要处理的逻辑代码全部放在该程序中，比如数据的保存、LED等的亮灭等等，执行完毕后退出中断服务函数；二是设置一个标志位，然后在主函数的while循环中判断此外部变量标志位的值，进而进行相关操作。</p>
+<p><strong>问题6</strong>：解析数据时关闭中断这样会不会有后续数据的丢失？</p>
+<p>答：分两种情况，如果在解析数据时，又从上位机发送了数据到单片机，那么这部分数据会丢失，因为中断已经关闭，无法进入中断服务函数，数据根本无法接收，只会在硬件缓冲区一次又一次的被覆盖。如果在解析数据时没有新的数据传输到单片机，等解析完毕后，中断再次打开时，才有数据传输过来，那么对数据是没有任何影响的。当然，单片机处理数据的数据还是比较快的，如果上一次传输的数据比较少，解析数据的时间花费少，中断可以很快再次打开，那么是感觉不到什么影响的，如果一次传输大量数据，在下一次传输时就可能存在丢失数据的情况，也就是丢包。</p>
+<p><strong>问题7</strong>：当数据进入中断的时候，主函数是在等待吗？如果是的话中断函数比较多，怎么保证当中断结束时主函数能从原来的位置直接运行？</p>
+<p>答：当进入中断时，主函数的确是处于等待状态，但第二个问题不需要担心，每一次进入中断时，硬件会自动进行现场保护，也就是开辟堆栈空间，保存当前的状态信息，当然也包括当前指令执行的位置，中断服务函数结束后，数据从堆栈中弹出，程序回到进入中断前的现场，继续执行。整个过程都是硬件自动完成，程序员不用做任何操作。</p>
+<p><strong>问题8</strong>：如果传输数据中，出现终止符怎么办？</p>
+<p>答：一般不会在串口助手中发送终止符，字符串终止符(也就是空字符)的Ascii码为0x00，在本文程序中，如果出现终止符，后续数据也是能够接收的，即能够保存在数组中。但是在单片机的串口发送函数中，遇到空字符就会认为数据已经结束，后续的数据不会被发送。遇到这种问题，暂时没有一个好的解决方案，可以考虑修改串口发送函数，不再以是否为空字符为结束标志，而是确定一个明确的数据长度。</p>
+<p><strong>问题9</strong>：程序中字符串的发送是怎么实现的？</p>
+<p>答：程序中的字符串发送没有用到任何中断，当然也可以使用中断，在中断服务函数中再调用数据发送函数。库函数void USART_SendData(USART_TypeDef* USARTx, uint16_t Data)可以实现通过串口发送引脚TX，发送1字节数据的功能，第一个参数为串口号，第二个参数为发送的数据，因为STM32中的串口发送数据的字长有8位和9位两种，所以此参数类型为uint16_t，即16位。但是一般8位最常用，因为刚好一个字节，9位的用得较少。发送数据后需要等待当前数据发送完成才能进行下一次的发送，也就是等待发送完成标志位TC置1，代码为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(<span class="hljs-built_in">USART_GetFlagStatus</span>(USART1,USART_FLAG_TC )==RESET);<br></code></pre></td></tr></table></figure>
+
+<p>为了实现字符串的发送，也就是多个字节连续发送，可定义一个函数，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Send_data</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> *data)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">while</span>(*data!=<span class="hljs-string">&#x27;\0&#x27;</span>)<br>    &#123;<br>      <span class="hljs-keyword">while</span>(<span class="hljs-built_in">USART_GetFlagStatus</span>(USART1,USART_FLAG_TC )==RESET);<br><br>      <span class="hljs-built_in">USART_SendData</span>(USART1,*data);<br><br>      data++;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当没有到达字符串的结束标志’\0’之前，循环调用数据发送函数，同时指针移到下一位。值得注意的是，如果使用了串口发送功能，那么最好在串口初始化函数usart1_init()中最后加一句清除发送完成标志的代码，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">USART_ClearFlag</span>(USART1,USART_FLAG_TC);    <span class="hljs-comment">//清除发送完成标志位</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>问题10</strong>：除了数字还可以发送其他信息吗？</p>
+<p>答：可以的，传输的数据在传输线上就是一个个的高低电平，在单片机内部就是01…这种的二进制数，将其用不同的译码规则翻译就是不同的信息。一般将其保存到字符数组中，也就是字符类型，符合Ascii码规则，包含了数字、字母、特殊字符等信息。</p>
+<p><strong>问题11</strong>：一次发送数据的上限是多少？</p>
+<p>答：理论上是没有限制的，也就是单片机的串口可以连续工作，一直发送、接收数据，实际使用时通常在软件中定义一个缓冲数组，数组的大小就决定了一次发送数据的上限。本程序中定义大小为100。</p>
+<p><strong>问题12</strong>：@printdata12345678900#多次与@printdata12345678901234567890…12345678900#数据传输的差别可以说一下么？</p>
+<p>答：@printdata12345678900#多次，例如发送@printdata12345678900#@printdata12345678900#@printdata12345678900#时，按照本文程序的设计思路，依次检查首尾指令，符合要求，将会正确打印中间数据部分，即打印12345678900#@printdata12345678900#@printdata1234567890</p>
+<p>  发送@printdata12345678901234567890…12345678900#时，同样检查首尾指令，符合要求，将会正确打印中间数据部分，即打印12345678901234567890…1234567890</p>
+<p><strong>问题13</strong>：在stm32端奇偶校验位要算在数据位中，在PC端奇偶校验位是否要算在数据位中？</p>
+<p>答：这个与PC端串口调试助手开发的源码有关系，但是大部分软件都是如果在软件界面的数据位选择为8位，校验位选择奇检验或偶校验，那么调试助手会将接收到的数据的低8位作为数据位，最高位单独取出作为校验位。所以一般来说，PC端奇偶校验位不算在数据位中。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/" class="category-chain-item">嵌入式开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/STM32/" class="print-no-link">#STM32</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>STM32串口通信程序介绍</div>
+      <div>https://www.bit01.top/2025/03/25/stm32-serial-communication/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>李珊</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年3月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/25/linux-compile-and-run-wpa_supplicant/" title="在linux操作系统上编译并运行wpa_supplicant">
+                        <span class="hidden-mobile">在linux操作系统上编译并运行wpa_supplicant</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://bespoke-starlight-6f3b21.netlify.app/.netlify/functions/twikoo","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> <div> Copyright © 2025 比特零幺 bit01.top All Rights Reserved. </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      蜀ICP备2025129093号
+    </a>
+  </span>
+  
+    
+      <span>
+        <a
+          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51019002007839"
+          rel="nofollow noopener"
+          class="beian-police"
+          target="_blank"
+        >
+          
+            <span style="visibility: hidden; width: 0">|</span>
+            <img src="/img/police_beian.png" srcset="/img/loading.gif" lazyload alt="police-icon"/>
+          
+          <span>川公网安备51019002007839号</span>
+        </a>
+      </span>
+    
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
