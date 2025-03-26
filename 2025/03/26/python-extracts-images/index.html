@@ -19,26 +19,29 @@
   <meta name="author" content="李珊">
   <meta name="keywords" content="博客，嵌入式，linux，python，c，matlab，内核驱动，wifi网络">
   
-    <meta name="description" content="本文实现了Matlab下的自适应中值滤波算法，并给出了一个应用实例。">
+    <meta name="description" content="为了从视频中提取每一帧图片，编写Python脚本实现该功能，该脚本支持分隔90多小时的视频。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="自适应中值滤波算法的Matlab实现">
-<meta property="og:url" content="https://www.bit01.top/2025/03/25/matlab-adaptive-median-filtering-algorithm/index.html">
+<meta property="og:title" content="使用Python一键提取视频中的帧图片">
+<meta property="og:url" content="https://www.bit01.top/2025/03/26/python-extracts-images/index.html">
 <meta property="og:site_name" content="比特零幺">
-<meta property="og:description" content="本文实现了Matlab下的自适应中值滤波算法，并给出了一个应用实例。">
+<meta property="og:description" content="为了从视频中提取每一帧图片，编写Python脚本实现该功能，该脚本支持分隔90多小时的视频。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.bit01.top/2025/03/25/matlab-adaptive-median-filtering-algorithm/faa5198d015875739a3fcdb847e4f7c3.jpeg">
-<meta property="article:published_time" content="2025-03-25T03:14:00.000Z">
-<meta property="article:modified_time" content="2025-03-26T13:51:25.714Z">
+<meta property="og:image" content="https://www.bit01.top/2025/03/26/python-extracts-images/d3a9b2e3a55bc00bbc39ca1b38896588.png">
+<meta property="og:image" content="https://www.bit01.top/2025/03/26/python-extracts-images/1263acf7760b895dc5ad965e809a0661.png">
+<meta property="og:image" content="https://www.bit01.top/2025/03/26/python-extracts-images/d9b9d8b1f0f94e0dbf5bf6cc140d3b8e.png">
+<meta property="og:image" content="https://www.bit01.top/2025/03/26/python-extracts-images/2a62a390022785c1b9a2132f3f27bd24.png">
+<meta property="article:published_time" content="2025-03-26T09:46:00.000Z">
+<meta property="article:modified_time" content="2025-03-26T13:51:25.738Z">
 <meta property="article:author" content="李珊">
-<meta property="article:tag" content="Matlab编程">
+<meta property="article:tag" content="Python编程">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.bit01.top/2025/03/25/matlab-adaptive-median-filtering-algorithm/faa5198d015875739a3fcdb847e4f7c3.jpeg">
+<meta name="twitter:image" content="https://www.bit01.top/2025/03/26/python-extracts-images/d3a9b2e3a55bc00bbc39ca1b38896588.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>自适应中值滤波算法的Matlab实现 - 比特零幺</title>
+  <title>使用Python一键提取视频中的帧图片 - 比特零幺</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -264,7 +267,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="自适应中值滤波算法的Matlab实现"></span>
+            <span id="subtitle" data-typed-text="使用Python一键提取视频中的帧图片"></span>
           
         </div>
 
@@ -280,8 +283,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-25 11:14" pubdate>
-          2025年3月25日 上午
+        <time datetime="2025-03-26 17:46" pubdate>
+          2025年3月26日 下午
         </time>
       </span>
     
@@ -292,7 +295,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          503 字
+          629 字
         
       </span>
     
@@ -303,7 +306,7 @@
         
         
         
-          5 分钟
+          6 分钟
         
       </span>
     
@@ -357,17 +360,17 @@
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="算法实现"
-        id="heading-2db38e916e6c3163b2b0dd469349aefd" role="tab" data-toggle="collapse" href="#collapse-2db38e916e6c3163b2b0dd469349aefd"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="脚本程序"
+        id="heading-2af9812bd00be5ac14f3fff3a482a21f" role="tab" data-toggle="collapse" href="#collapse-2af9812bd00be5ac14f3fff3a482a21f"
         aria-expanded="true"
       >
-        算法实现
-        <span class="list-group-count">(5)</span>
+        脚本程序
+        <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-2db38e916e6c3163b2b0dd469349aefd"
-           role="tabpanel" aria-labelledby="heading-2db38e916e6c3163b2b0dd469349aefd">
+      <div class="category-collapse collapse show" id="collapse-2af9812bd00be5ac14f3fff3a482a21f"
+           role="tabpanel" aria-labelledby="heading-2af9812bd00be5ac14f3fff3a482a21f">
         
         
           
@@ -376,46 +379,28 @@
     
       
       
-        <a href="/2025/03/25/matlab-simulated-annealing-algorithm/" title="模拟退火算法的Matlab实现"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">模拟退火算法的Matlab实现</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2025/03/25/matlab-adaptive-median-filtering-algorithm/" title="自适应中值滤波算法的Matlab实现"
+        <a href="/2025/03/26/python-extracts-images/" title="使用Python一键提取视频中的帧图片"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">自适应中值滤波算法的Matlab实现</span>
+          <span class="category-post">使用Python一键提取视频中的帧图片</span>
         </a>
       
     
       
       
-        <a href="/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/" title="蒙特卡洛加模拟退火算法的Matlab实现"
+        <a href="/2025/03/15/python-wifi-mac-frame/" title="使用python发送一些自定义的wifi帧"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">蒙特卡洛加模拟退火算法的Matlab实现</span>
+          <span class="category-post">使用python发送一些自定义的wifi帧</span>
         </a>
       
     
       
       
-        <a href="/2025/03/25/matlab-ant-colony-algorithm/" title="蚁群算法的Matlab实现"
+        <a href="/2025/03/13/python-https-server/" title="使用python快速搭建一个https服务器"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">蚁群算法的Matlab实现</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2025/03/25/matlab-genetic-algorithm/" title="遗传算法的Matlab实现"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">遗传算法的Matlab实现</span>
+          <span class="category-post">使用python快速搭建一个https服务器</span>
         </a>
       
     
@@ -437,7 +422,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">自适应中值滤波算法的Matlab实现</h1>
+            <h1 id="seo-header">使用Python一键提取视频中的帧图片</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
@@ -450,20 +435,34 @@
             
               <div class="markdown-body">
                 
-                <p> 本文程序来自冈萨雷斯数字图像处理Matlab中文版附录C</p>
-<p>相对原文程序，（1）将第8行的‘|’更改为‘||’（2）第11行注释。其余保持不变。</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-comment">%自适应中值滤波</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span> = <span class="hljs-title">adpmedian</span> <span class="hljs-params">(g, Smax)</span></span><br><span class="hljs-comment">% ADPMEDIAN Parform adaptive median filtering.</span><br><span class="hljs-comment">%   F = ADPMEDIAN(G, SMAX) performs adaptive median filtering of</span><br><span class="hljs-comment">%   image G. The median filter starts at size 3-by-3 and iterates up</span><br><span class="hljs-comment">%   to size SMAX-by-SMAX. SMAX must be an odd integer greater than 1.</span><br><span class="hljs-comment">% SMAX must be an odd, positive integer greater than 1.</span><br><span class="hljs-keyword">if</span> (Smax &lt;= <span class="hljs-number">1</span>) || (Smax/<span class="hljs-number">2</span> == <span class="hljs-built_in">round</span>(Smax/<span class="hljs-number">2</span>)) || (Smax ~= <span class="hljs-built_in">round</span>(Smax))<br>    error (<span class="hljs-string">&#x27;SMAX must be an odd integer &gt; 1.&#x27;</span>)<br><span class="hljs-keyword">end</span><br><span class="hljs-comment">% [M, N] = size(g);</span><br><span class="hljs-comment">% Initial setup.</span><br>f = g;<br>f(:) = <span class="hljs-number">0</span>;<br>alreadyProcessed = <span class="hljs-built_in">false</span> (<span class="hljs-built_in">size</span>(g));<br><span class="hljs-comment">% Begin filtering.</span><br><span class="hljs-keyword">for</span> k = <span class="hljs-number">3</span>:<span class="hljs-number">2</span>:Smax<br>    zmin = ordfilt2(g, <span class="hljs-number">1</span>, <span class="hljs-built_in">ones</span>(k, k),<span class="hljs-string">&#x27;symmetric&#x27;</span>);<br>    zmax = ordfilt2(g, k * k, <span class="hljs-built_in">ones</span>(k, k), <span class="hljs-string">&#x27;symmetric&#x27;</span>);<br>    zmed = medfilt2(g, [k k], <span class="hljs-string">&#x27;symmetric&#x27;</span>);<br>    processUsingLevelB  = (zmed &gt; zmin) &amp; (zmax &gt; zmed) &amp;...<br>        ~alreadyProcessed;<br>    zB = (g &gt; zmin) &amp; (zmax &gt; g);<br>    outputZxy = processUsingLevelB &amp; zB;<br>    outputZmed = processUsingLevelB &amp; ~zB;<br>    f (outputZxy) = g(outputZxy);<br>    f (outputZmed) = zmed(outputZmed);<br>    alreadyProcessed = alreadyProcessed | processUsingLevelB;<br>    <span class="hljs-keyword">if</span> all (alreadyProcessed (:))<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><span class="hljs-comment">% Output zmed for any remaining unprocessed pixels. Note that this</span><br><span class="hljs-comment">% zmed was computed using a window of size Smax-by-Smax, which is</span><br><span class="hljs-comment">% the final value of k in the loop.</span><br>f (~alreadyProcessed) = zmed (~alreadyProcessed);<br><span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+                <p>为了从视频中提取每一帧图片，编写Python脚本实现该功能，脚本中的关键参数根据实际情况进行修改</p>
+<ul>
+<li><p>video_path为指定的视频路径</p>
+</li>
+<li><p>interval为指定分割视频是是否跳帧，默认不跳帧，即全部分割</p>
+</li>
+<li><p>width, height 为指定对分割帧图片调整大小，默认不调整</p>
+</li>
+</ul>
+<h2 id="分割单视频文件"><a href="#分割单视频文件" class="headerlink" title="分割单视频文件"></a>分割单视频文件</h2><p>该脚本自动对帧图片编号，设置为7位编码，最多可分割9999999帧图片，即92小时的30FPS视频</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># !/usr/bin/env python</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># ============================================================</span><br><span class="hljs-comment"># @Date    : 2021/12/08 14:40:31</span><br><span class="hljs-comment"># @Author  : LiShan</span><br><span class="hljs-comment"># @Email   : lishan@st.xatu.edu.com</span><br><span class="hljs-comment"># @File    : extract.py</span><br><span class="hljs-comment"># @IDE     : PyCharm</span><br><span class="hljs-comment"># @Func    : Extract video image</span><br><span class="hljs-comment"># ============================================================</span><br><span class="hljs-keyword">import</span> os.path<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> cv2<br><br>video_path = <span class="hljs-string">&quot;./assets/intersection.mp4&quot;</span><br>save_path = video_path[:video_path.rfind(<span class="hljs-string">&#x27;.&#x27;</span>)]<br>os.makedirs(save_path, exist_ok=<span class="hljs-literal">True</span>)<br>cap = cv2.VideoCapture(video_path)<br>fps = <span class="hljs-built_in">int</span>(cap.get(cv2.CAP_PROP_FPS))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;FPS:&#123;:.2f&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(fps)<br>rate = cap.get(<span class="hljs-number">5</span>)<br>frame_num = cap.get(<span class="hljs-number">7</span>)<br>duration = frame_num/rate<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;video total time:&#123;:.2f&#125;s&#x27;</span>.<span class="hljs-built_in">format</span>(duration))<br><br><span class="hljs-comment"># width, height = 1920, 1080</span><br><span class="hljs-comment"># interval = int(fps) * 4</span><br>interval = <span class="hljs-number">1</span><br>process_num = frame_num // interval<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;process frame:&#123;:.0f&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(process_num))<br><br>cnt = <span class="hljs-number">0</span><br>num = <span class="hljs-number">0</span><br><br>t0 = time.time()<br><span class="hljs-keyword">while</span> cap.isOpened():<br>    ret, frame = cap.read()<br>    <span class="hljs-keyword">if</span> ret:<br>        cnt += <span class="hljs-number">1</span><br>        <span class="hljs-keyword">if</span> cnt % interval == <span class="hljs-number">0</span>:<br>            num += <span class="hljs-number">1</span><br>            <span class="hljs-comment"># frame = cv.resize(frame, (width, height))</span><br>            cv2.imwrite(save_path + <span class="hljs-string">&quot;/%07d.jpg&quot;</span> % num, frame)<br>            remain_frame = process_num - num<br>            t1 = time.time() - t0<br>            t0 = time.time()<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Processing %07d.jpg, remain frame: %d, remain time: %.2fs&quot;</span> % (num, remain_frame, remain_frame * t1))<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">if</span> cv2.waitKey(<span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xff</span> == <span class="hljs-number">27</span>:<br>        <span class="hljs-keyword">break</span><br><br>cap.release()<br>cv2.destroyAllWindows()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;done&quot;</span>)<br><br></code></pre></td></tr></table></figure>
 
-<p>使用方法： f &#x3D; adpmedian (g, Smax)</p>
-<p>其中：g为输入二维图像，Smax为最大滤波尺寸，f为自适应滤波后输出图像</p>
-<p>参考实例：</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs matlab">Gray = imread(<span class="hljs-string">&#x27;cameraman.tif&#x27;</span>); <span class="hljs-comment">%读取图像文件</span><br><br><span class="hljs-comment">%加入各种浓度的椒盐噪声</span><br>N1 = imnoise(Gray,<span class="hljs-string">&#x27;salt &amp; pepper&#x27;</span>,<span class="hljs-number">0.05</span>);<span class="hljs-comment">%椒盐噪声，噪声密度0.05</span><br>N2 = imnoise(Gray,<span class="hljs-string">&#x27;salt &amp; pepper&#x27;</span>,<span class="hljs-number">0.25</span>);<span class="hljs-comment">%椒盐噪声，噪声密度0.25</span><br>N3 = imnoise(Gray,<span class="hljs-string">&#x27;salt &amp; pepper&#x27;</span>,<span class="hljs-number">0.45</span>);<span class="hljs-comment">%椒盐噪声，噪声密度0.45</span><br>N4 = imnoise(Gray,<span class="hljs-string">&#x27;salt &amp; pepper&#x27;</span>,<span class="hljs-number">0.65</span>);<span class="hljs-comment">%椒盐噪声，噪声密度0.65</span><br><br><span class="hljs-comment">%中值滤波</span><br>M1 = medfilt2(N1);<br>M2 = medfilt2(N2);<br>M3 = medfilt2(N3);<br>M4 = medfilt2(N4);<br><br><span class="hljs-comment">%自适应中值滤波</span><br>f1 = adpmedian(N1,<span class="hljs-number">11</span>);<br>f2 = adpmedian(N2,<span class="hljs-number">11</span>);<br>f3 = adpmedian(N3,<span class="hljs-number">11</span>);<br>f4 = adpmedian(N4,<span class="hljs-number">11</span>);<br><br><span class="hljs-built_in">figure</span><br>subplot(<span class="hljs-number">341</span>);<br>imshow(N1);<br>subplot(<span class="hljs-number">342</span>);<br>imshow(N2);<br>subplot(<span class="hljs-number">343</span>);<br>imshow(N3);<br>subplot(<span class="hljs-number">344</span>);<br>imshow(N4);<br><br>subplot(<span class="hljs-number">345</span>);<br>imshow(M1);<br>subplot(<span class="hljs-number">346</span>);<br>imshow(M2);<br>subplot(<span class="hljs-number">347</span>);<br>imshow(M3);<br>subplot(<span class="hljs-number">348</span>);<br>imshow(M4);<br><br>subplot(<span class="hljs-number">349</span>);<br>imshow(f1);<br>subplot(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">10</span>);<br>imshow(f2);<br>subplot(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">11</span>);<br>imshow(f3);<br>subplot(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">12</span>);<br>imshow(f4);<br></code></pre></td></tr></table></figure>
+<p>分隔效果如下：</p>
+<img src="/2025/03/26/python-extracts-images/d3a9b2e3a55bc00bbc39ca1b38896588.png" srcset="/img/loading.gif" lazyload class="" title="img">
 
-<p>实验效果如下：</p>
-<p>第一行分别为加入浓度0.05、0.25、0.45、0.65的椒盐噪声</p>
-<p>第二行为中值滤波medfilt2处理效果，默认滤波尺寸 3*3</p>
-<p>第三行为自适应中值滤波adpmedian 处理效果，最大滤波尺寸为11*11</p>
-<img src="/2025/03/25/matlab-adaptive-median-filtering-algorithm/faa5198d015875739a3fcdb847e4f7c3.jpeg" srcset="/img/loading.gif" lazyload class="" title="img">
+<h2 id="分割多视频文件"><a href="#分割多视频文件" class="headerlink" title="分割多视频文件"></a>分割多视频文件</h2><p>增加多对个视频文件提取制作数据集的功能</p>
+<p> 1<a href="https://10.98.69.174:4443shell">https://10.98.69.174:4443shell</a></p>
+<img src="/2025/03/26/python-extracts-images/1263acf7760b895dc5ad965e809a0661.png" srcset="/img/loading.gif" lazyload class="" title="img">
+
+<p>文件夹内的视频文件如下</p>
+<img src="/2025/03/26/python-extracts-images/d9b9d8b1f0f94e0dbf5bf6cc140d3b8e.png" srcset="/img/loading.gif" lazyload class="" title="img">
+
+<p>运行下列脚本文件，分割后的图片将保存到JPEGImage文件夹</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># !/usr/bin/env python</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># ============================================================</span><br><span class="hljs-comment"># @Date    : 2021/12/08 14:40:31</span><br><span class="hljs-comment"># @Author  : LiShan</span><br><span class="hljs-comment"># @Email   : lishan@st.xatu.edu.com</span><br><span class="hljs-comment"># @File    : extract.py</span><br><span class="hljs-comment"># @IDE     : PyCharm</span><br><span class="hljs-comment"># @Func    : Extract video image</span><br><span class="hljs-comment"># ============================================================</span><br><span class="hljs-keyword">import</span> os.path<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> cv2<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_video_list</span>(<span class="hljs-params">path</span>):<br>    video_ext = [<span class="hljs-string">&quot;.mp4&quot;</span>, <span class="hljs-string">&quot;.avi&quot;</span>]<br>    video_names = []<br>    <span class="hljs-keyword">for</span> maindir, subdir, file_name_list <span class="hljs-keyword">in</span> os.walk(path):<br>        <span class="hljs-keyword">for</span> filename <span class="hljs-keyword">in</span> file_name_list:<br>            apath = os.path.join(maindir, filename)<br>            ext = os.path.splitext(apath)[<span class="hljs-number">1</span>]<br>            <span class="hljs-keyword">if</span> ext <span class="hljs-keyword">in</span> video_ext:<br>                video_names.append(apath)<br>    <span class="hljs-keyword">return</span> video_names<br><br><br>video_path = <span class="hljs-string">&quot;./video/&quot;</span><br>save_path = <span class="hljs-string">&quot;./JPEGImages/&quot;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;frame image save path：&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(save_path))<br>os.makedirs(save_path, exist_ok=<span class="hljs-literal">True</span>)<br><br>num = <span class="hljs-number">0</span><br>video_cnt = <span class="hljs-number">0</span><br><span class="hljs-keyword">if</span> os.path.isdir(video_path):<br>    files = get_video_list(video_path)<br><span class="hljs-keyword">else</span>:<br>    files = [video_path]<br>files.sort()<br>video_num = <span class="hljs-built_in">len</span>(files)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(video_num):<br>    video_name = files[i]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;video name: &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(video_name))<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;progress: &#123;:.0f&#125;/&#123;:.0f&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(i + <span class="hljs-number">1</span>, video_num))<br>    cap = cv2.VideoCapture(video_name)<br>    fps = <span class="hljs-built_in">int</span>(cap.get(cv2.CAP_PROP_FPS))<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;FPS: &#123;:.2f&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(fps))<br>    rate = cap.get(<span class="hljs-number">5</span>)<br>    frame_num = cap.get(<span class="hljs-number">7</span>)<br>    duration = frame_num/rate<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;video total time: &#123;:.2f&#125;s&#x27;</span>.<span class="hljs-built_in">format</span>(duration))<br><br>    <span class="hljs-comment"># width, height = 1920, 1080</span><br>    <span class="hljs-comment"># interval = 1</span><br>    interval = <span class="hljs-built_in">int</span>(fps) * <span class="hljs-number">4</span><br>    process_num = frame_num // interval<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;process frame: &#123;:.0f&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(process_num))<br>    cnt = <span class="hljs-number">0</span><br>    current_num = <span class="hljs-number">0</span><br>    t0 = time.time()<br>    <span class="hljs-keyword">while</span> cap.isOpened():<br>        ret, frame = cap.read()<br>        <span class="hljs-keyword">if</span> ret:<br>            cnt += <span class="hljs-number">1</span><br>            <span class="hljs-keyword">if</span> cnt % interval == <span class="hljs-number">0</span>:<br>                num += <span class="hljs-number">1</span><br>                current_num += <span class="hljs-number">1</span><br>                <span class="hljs-comment"># frame = cv.resize(frame, (width, height))</span><br>                cv2.imwrite(save_path + <span class="hljs-string">&quot;/%07d.jpg&quot;</span> % num, frame)<br>                remain_frame = process_num - current_num<br>                t1 = time.time() - t0<br>                t0 = time.time()<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Processing %07d.jpg, remain frame: %d, remain time: %.2fs&quot;</span> %<br>                      (num, remain_frame, remain_frame * t1))<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">break</span><br>    cap.release()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;done&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>分割结果如下：</p>
+<img src="/2025/03/26/python-extracts-images/2a62a390022785c1b9a2132f3f27bd24.png" srcset="/img/loading.gif" lazyload class="" title="img">
+
 
                 
               </div>
@@ -482,7 +481,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0/" class="category-chain-item">算法实现</a>
+  <a href="/categories/%E8%84%9A%E6%9C%AC%E7%A8%8B%E5%BA%8F/" class="category-chain-item">脚本程序</a>
   
   
 
@@ -497,7 +496,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Matlab%E7%BC%96%E7%A8%8B/" class="print-no-link">#Matlab编程</a>
+        <a href="/tags/Python%E7%BC%96%E7%A8%8B/" class="print-no-link">#Python编程</a>
       
     </div>
   
@@ -509,8 +508,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>自适应中值滤波算法的Matlab实现</div>
-      <div>https://www.bit01.top/2025/03/25/matlab-adaptive-median-filtering-algorithm/</div>
+      <div>使用Python一键提取视频中的帧图片</div>
+      <div>https://www.bit01.top/2025/03/26/python-extracts-images/</div>
     </div>
     <div class="license-meta">
       
@@ -522,7 +521,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月25日</div>
+          <div>2025年3月26日</div>
         </div>
       
       
@@ -571,18 +570,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/25/windows-ubuntu-dualOS/" title="手把手教你安装Windows/Ubuntu双系统">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">手把手教你安装Windows/Ubuntu双系统</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/" title="蒙特卡洛加模拟退火算法的Matlab实现">
-                        <span class="hidden-mobile">蒙特卡洛加模拟退火算法的Matlab实现</span>
+                      <a href="/2025/03/25/stm32-serial-communication/" title="一个可复用的STM32串口通信项目">
+                        <span class="hidden-mobile">一个可复用的STM32串口通信项目</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -17,26 +17,26 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="李珊">
-  <meta name="keywords" content="博客，嵌入式，linux，python，c，内核驱动，wifi网络">
+  <meta name="keywords" content="博客，嵌入式，linux，python，c，matlab，内核驱动，wifi网络">
   
     <meta name="description" content="为了通过python编程发送mac帧测试wifi模块是否正常工作，特编写此程序。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python 编程构造并发送802.11 wifi mac帧">
+<meta property="og:title" content="使用python发送一些自定义的wifi帧">
 <meta property="og:url" content="https://www.bit01.top/2025/03/15/python-wifi-mac-frame/index.html">
 <meta property="og:site_name" content="比特零幺">
 <meta property="og:description" content="为了通过python编程发送mac帧测试wifi模块是否正常工作，特编写此程序。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-15T01:16:00.000Z">
-<meta property="article:modified_time" content="2025-03-25T16:42:40.851Z">
+<meta property="article:modified_time" content="2025-03-26T13:51:25.809Z">
 <meta property="article:author" content="李珊">
-<meta property="article:tag" content="python">
+<meta property="article:tag" content="Python编程">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>python 编程构造并发送802.11 wifi mac帧 - 比特零幺</title>
+  <title>使用python发送一些自定义的wifi帧 - 比特零幺</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -120,7 +120,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 30vh;">
+<div class="header-inner" style="height: 20vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -262,7 +262,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="python 编程构造并发送802.11 wifi mac帧"></span>
+            <span id="subtitle" data-typed-text="使用python发送一些自定义的wifi帧"></span>
           
         </div>
 
@@ -290,7 +290,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          260 字
+          274 字
         
       </span>
     
@@ -360,7 +360,7 @@
         aria-expanded="true"
       >
         脚本程序
-        <span class="list-group-count">(1)</span>
+        <span class="list-group-count">(3)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -374,10 +374,28 @@
     
       
       
-        <a href="/2025/03/15/python-wifi-mac-frame/" title="python 编程构造并发送802.11 wifi mac帧"
+        <a href="/2025/03/26/python-extracts-images/" title="使用Python一键提取视频中的帧图片"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用Python一键提取视频中的帧图片</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/03/15/python-wifi-mac-frame/" title="使用python发送一些自定义的wifi帧"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">python 编程构造并发送802.11 wifi mac帧</span>
+          <span class="category-post">使用python发送一些自定义的wifi帧</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/03/13/python-https-server/" title="使用python快速搭建一个https服务器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">使用python快速搭建一个https服务器</span>
         </a>
       
     
@@ -399,12 +417,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">python 编程构造并发送802.11 wifi mac帧</h1>
+            <h1 id="seo-header">使用python发送一些自定义的wifi帧</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年3月26日 凌晨
+                    本文最后更新于 2025年3月26日 晚上
                   
                 
               </p>
@@ -412,7 +430,7 @@
             
               <div class="markdown-body">
                 
-                <p>要求：为了通过python编程发送mac帧测试wifi模块是否正常工作，特编写此程序</p>
+                <p>要求：为了通过python编程发送mac帧测试wifi模块是否正常工作，特编写此程序，可以用于模拟多种压力测试场景。</p>
 <p>前提：需要有一个支持监控模式的网卡，并在Linux操作系统下运行该程序</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># !/usr/bin/env python</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment"># note: precondition:</span><br><span class="hljs-comment"># sudo apt-get upgrade -y &amp;&amp; apt-get update -y</span><br><span class="hljs-comment"># sudo apt-get install python3-pip aircrack-ng -y</span><br><span class="hljs-comment"># pip install scapy</span><br><span class="hljs-comment"># 1. Verify that the network card supporting monitor mode: iwconfig</span><br><span class="hljs-comment"># 2. nable monitor mode of wlan0: airmon-ng start wlan0</span><br><span class="hljs-comment"># 3. Set the channel of wlan0mon: iwconfig wlan0mon channel &lt;channel_number&gt;</span><br><br><span class="hljs-keyword">from</span> scapy.<span class="hljs-built_in">all</span> <span class="hljs-keyword">import</span> *<br><br>wifi_mac_frame = RadioTap() / Dot11() / Raw()  <span class="hljs-comment"># blank wifi mac frame</span><br><br><span class="hljs-comment"># frame header</span><br>wifi_mac_frame.<span class="hljs-built_in">type</span> = <span class="hljs-number">0</span>  <span class="hljs-comment"># management</span><br>wifi_mac_frame.subtype = <span class="hljs-number">13</span>  <span class="hljs-comment"># action</span><br>wifi_mac_frame.proto = <span class="hljs-number">0</span>  <span class="hljs-comment"># protect</span><br>wifi_mac_frame.FCfield = <span class="hljs-string">&quot;retry&quot;</span> <span class="hljs-comment"># retry</span><br>wifi_mac_frame.ID = <span class="hljs-number">14849</span>  <span class="hljs-comment"># duration</span><br>wifi_mac_frame.addr1 = <span class="hljs-string">&quot;FF:FF:FF:FF:FF:FF&quot;</span>  <span class="hljs-comment"># broadcast address</span><br>wifi_mac_frame.addr2 = <span class="hljs-string">&quot;02:3B:42:E1:FC:55&quot;</span>  <span class="hljs-comment"># source address</span><br>wifi_mac_frame.addr3 = <span class="hljs-string">&quot;02:3B:42:E1:FC:55&quot;</span>  <span class="hljs-comment"># bssid</span><br>wifi_mac_frame.SC = <span class="hljs-number">48</span>  <span class="hljs-comment"># sequence number</span><br><br><span class="hljs-comment"># frame body</span><br>hex_value = <span class="hljs-string">&#x27;042243000290fad602000000640043ef3d3d&#x27;</span>  <span class="hljs-comment"># FILS Discover Frame</span><br>wifi_mac_frame.load = <span class="hljs-built_in">bytes</span>.fromhex(hex_value)  <span class="hljs-comment"># payload</span><br><br>wifi_mac_frame.show()  <span class="hljs-comment"># show frame</span><br><br>sendp(wifi_mac_frame, iface=<span class="hljs-string">&quot;wlan0mon&quot;</span>, count=<span class="hljs-number">10000</span>)  <span class="hljs-comment"># send 10000 times</span><br><br></code></pre></td></tr></table></figure>
 
@@ -454,7 +472,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/python/" class="print-no-link">#python</a>
+        <a href="/tags/Python%E7%BC%96%E7%A8%8B/" class="print-no-link">#Python编程</a>
       
     </div>
   
@@ -466,7 +484,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>python 编程构造并发送802.11 wifi mac帧</div>
+      <div>使用python发送一些自定义的wifi帧</div>
       <div>https://www.bit01.top/2025/03/15/python-wifi-mac-frame/</div>
     </div>
     <div class="license-meta">
@@ -538,8 +556,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/14/openwrt-basic-operation/" title="OpenWrt基本操作介绍">
-                        <span class="hidden-mobile">OpenWrt基本操作介绍</span>
+                      <a href="/2025/03/14/openwrt-basic-operation/" title="自己动手编译一个OpenWrt操作系统">
+                        <span class="hidden-mobile">自己动手编译一个OpenWrt操作系统</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
