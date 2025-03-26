@@ -26,17 +26,17 @@
 <meta property="og:site_name" content="比特零幺">
 <meta property="og:description" content="本文对有顺序约束的任务指派问题进行了分析，引出了蒙特卡洛算法加模拟退火算法的解决思路。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.bit01.top/bff14baef1b4a1ec47beb90c5468b73c.png">
-<meta property="og:image" content="https://www.bit01.top/a40a48ff529a4fe23d1e43baf0b1ff95.png">
-<meta property="og:image" content="https://www.bit01.top/a3bd8d719e484861d0b8d64ce7fdb6ac.png">
-<meta property="og:image" content="https://www.bit01.top/be49ad63ef26b4880138fa22cbf81982.png">
-<meta property="og:image" content="https://www.bit01.top/1e6dbbf659f01aba3724b1bbdbcca284.png">
+<meta property="og:image" content="https://www.bit01.top/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/bff14baef1b4a1ec47beb90c5468b73c.png">
+<meta property="og:image" content="https://www.bit01.top/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/a40a48ff529a4fe23d1e43baf0b1ff95.png">
+<meta property="og:image" content="https://www.bit01.top/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/a3bd8d719e484861d0b8d64ce7fdb6ac.png">
+<meta property="og:image" content="https://www.bit01.top/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/be49ad63ef26b4880138fa22cbf81982.png">
+<meta property="og:image" content="https://www.bit01.top/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/1e6dbbf659f01aba3724b1bbdbcca284.png">
 <meta property="article:published_time" content="2025-03-25T02:45:00.000Z">
 <meta property="article:modified_time" content="2025-03-25T16:42:47.721Z">
 <meta property="article:author" content="李珊">
 <meta property="article:tag" content="Matlab编程">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.bit01.top/bff14baef1b4a1ec47beb90c5468b73c.png">
+<meta name="twitter:image" content="https://www.bit01.top/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/bff14baef1b4a1ec47beb90c5468b73c.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -560,10 +560,14 @@
 
 
 <p>求出结果如下：</p>
-<p><img src="/bff14baef1b4a1ec47beb90c5468b73c.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<img src="/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/bff14baef1b4a1ec47beb90c5468b73c.png" srcset="/img/loading.gif" lazyload class="" title="img">
+
+
+
 <p>求出结果为3号员工完成任务A，4号员工完成任务B，5号员工完成任务C，此时耗费时间最短，最短时间为53</p>
 <p>但是这是数据量比较少的情况，一旦数据增大，就不能再使用遍历了，比如，任务数为27，员工数为35，组合方式就达两千三百万种之多，此时需要寻找一种更好的方法</p>
-<p><img src="/a40a48ff529a4fe23d1e43baf0b1ff95.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<img src="/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/a40a48ff529a4fe23d1e43baf0b1ff95.png" srcset="/img/loading.gif" lazyload class="" title="img">
+
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>更一般的，对于一个离散的组合优化问题，可以使用蒙特卡洛加模拟退火算法解决</p>
 <p>算法步骤描述如下：</p>
 <ul>
@@ -589,11 +593,14 @@
 
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>记录两次较好的运行结果</p>
 <p>运行结果1：</p>
-<p><img src="/a3bd8d719e484861d0b8d64ce7fdb6ac.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<img src="/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/a3bd8d719e484861d0b8d64ce7fdb6ac.png" srcset="/img/loading.gif" lazyload class="" title="img">
+
 <p>运行结果2：</p>
-<p><img src="/be49ad63ef26b4880138fa22cbf81982.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<img src="/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/be49ad63ef26b4880138fa22cbf81982.png" srcset="/img/loading.gif" lazyload class="" title="img">
+
 <p>更改任务数、员工总数，程序也能很快的完成收敛。当然模拟退火每次运行结果不一样，可以多运行几次，记录一个较好的结果，这样能够在短时间内得到一个较好解方案。通过遍历法可以验证模拟退火算法结果的有效性，其结果保持一致，但模拟退火算法可以更快得出结果。</p>
-<p><img src="/1e6dbbf659f01aba3724b1bbdbcca284.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<img src="/2025/03/25/matlab-montecarlo-simulated-annealing-algorithm/1e6dbbf659f01aba3724b1bbdbcca284.png" srcset="/img/loading.gif" lazyload class="" title="img">
+
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>本文首先对有顺序约束的任务指派问题进行了分析，有顺序约束即任务的完成有先后顺序之分，员工的选取也有先后顺序之分，即只能向后选取，在这个限制条件下，本文先给出了遍历法的解决方法，并给出了Matlab代码和示例结果；然后再提出在任务数和员工数增大的情况下遍历法不再适用，因为本质上这是一个离散的组合优化问题，由此引入了蒙特卡洛算法加模拟退火算法的解决思路，并给出了算法步骤和Matlab代码以及示例结果。</p>
 <p>本文的模拟退火算法与一般退火算法不同，由于本文的组合情况有顺序约束，常规退火算法中的扰动方法不再适用，本文使用方法为：在当前解中随机删除一个元素，再随机加入一个新元素的方法构造新解，最终取得了比较好的效果。</p>
 <p>感谢博主“乐观的阿锡”<a target="_blank" rel="noopener" href="https://blog.csdn.net/demon_xi">乐观的阿锡的博客_CSDN博客-计算机,go语言,Linux系统编程学习笔记领域博主</a>为本文提供了问题基础以及解决的思路</p>
